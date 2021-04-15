@@ -207,7 +207,7 @@ class Profile(QDialog):
         self.buttons.rejected.connect(self.reject)
 
     def set_avatar(self):
-        self.img_file = QFileDialog.getOpenFileName(self, "Attach Img", ".", "Image Files (*.png *.jpg *.jpeg *.bmp * .tif)")[0]
+        self.img_file = QFileDialog.getOpenFileName(self, "Attach Img", ".", "Image Files (*.png *.jpg *.jpeg *.bmp *.tif *.webp)")[0]
         self.img.setPixmap(QPixmap(self.img_file).scaledToHeight(300))
 
 
@@ -232,7 +232,7 @@ class MyProfile(QDialog):
         self.buttons.rejected.connect(self.reject)
 
     def set_avatar(self):
-        self.img_file = QFileDialog.getOpenFileName(self, "Attach Img", ".", "Image Files (*.png *.jpg *.jpeg *.bmp * .tif)")[0]
+        self.img_file = QFileDialog.getOpenFileName(self, "Attach Img", ".", "Image Files (*.png *.jpg *.jpeg *.bmp *.tif *.webp)")[0]
         self.img.setPixmap(QPixmap(self.img_file).scaledToHeight(300))
 
 class MainWindow(QMainWindow):
