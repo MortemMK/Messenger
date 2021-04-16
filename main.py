@@ -16,15 +16,12 @@ from myDatabase import Msg
 
 
 class Message(QWidget):
-    def __init__(self, msg, small=False, parent=None):
+    def __init__(self, msg, parent=None):
         super().__init__(parent=parent)
-        self.small = small
-        self.msg = msg
         layout = QFormLayout()
         super().setLayout(layout)
-        
+        self.msg = msg
         self.setAutoFillBackground(True)
-
         self.change_bg(False)
         self.pixmap = QPixmap(self.msg.avatar)
         self.pixmap = self.pixmap.scaled(QtCore.QSize(40, 40), QtCore.Qt.IgnoreAspectRatio, QtCore.Qt.SmoothTransformation)
@@ -32,9 +29,9 @@ class Message(QWidget):
         def add_author_date(msg):
             l = QHBoxLayout()
             label = QLabel()
-            title = QLabel('  ' + msg.date.toString())
             label.setPixmap(self.pixmap)
             label.setAlignment(QtCore.Qt.AlignCenter)
+            title = QLabel('  ' + msg.date.toString())
             title.setMinimumHeight(self.pixmap.height())
             title.setAlignment(QtCore.Qt.AlignCenter)
             l.addWidget(label)
@@ -51,8 +48,6 @@ class Message(QWidget):
         elif msg.is_img():
             img = QLabel()
             pixmap = QPixmap(msg.img).scaledToHeight(300)
-            if self.small:
-                pixmap = pixmap.scaledToHeight(300)
             img.setPixmap(pixmap)
             layout.addRow(img, add_author_date(msg))
 
@@ -78,7 +73,7 @@ class Message(QWidget):
 class Dialog(QWidget):
     def __init__(self, msg, author, d_id=None, d_acc_id = None, parent=None):
         super().__init__(parent=parent)
-        self.msg = Message(msg = msg.msg, small = True)
+        self.msg = Message(msg = msg.msg)
         self.d_id = d_id
         self.d_acc_id = d_acc_id
         self.author = author
@@ -207,7 +202,7 @@ class Profile(QDialog):
         self.buttons.rejected.connect(self.reject)
 
     def set_avatar(self):
-        self.img_file = QFileDialog.getOpenFileName(self, "Attach Img", ".", "Image Files (*.png *.jpg *.jpeg *.bmp *.tif *.webp)")[0]
+        self.img_file = QFileDialog.getOpenFileName(self, "Attach Img", ".", "Image Files (*.png *.jpg *.jpeg *.bmp * .tif)")[0]
         self.img.setPixmap(QPixmap(self.img_file).scaledToHeight(300))
 
 
